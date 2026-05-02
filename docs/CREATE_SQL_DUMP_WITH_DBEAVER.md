@@ -13,8 +13,8 @@ This file is imported into the Docker image.
 ## Important
 
 Do not dump the complete database server. The full profile tables can be very
-large. For the `settings_Ali.xml` test case, export only the needed tables and
-filter the two biggest profile tables.
+large. For your preferred `setting.xml` test case, export only the needed tables and
+filter the tables that are too big.
 
 Use this detailed table plan:
 
