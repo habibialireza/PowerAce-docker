@@ -3,9 +3,7 @@
 This repository contains the Docker/MariaDB workflow for running PowerACE with a
 local database instead of the institute database server.
 
-It intentionally does **not** contain the PowerACE source code and it should not
-contain the real SQL data dump. The real SQL file is large and may contain
-restricted project data, so it is ignored by Git.
+It intentionally does **not** contain the PowerACE source code and the real SQL data dump.
 
 ## What This Solves
 
@@ -24,10 +22,7 @@ Dockerfile                              Builds a MariaDB image with imported dat
 build-image.ps1                        Builds the Docker image
 run-container.ps1                      Starts the database container
 test-connection.ps1                    Checks that MariaDB answers
-validate-powerace-tables.ps1           Checks that required PowerACE tables exist
 normalize-dump-databases.ps1           Fixes dumps without CREATE DATABASE / USE
-fix-dbeaver-query-inserts.ps1          Fixes DBeaver query-result INSERT headers
-make-profile-inserts-idempotent.ps1    Handles duplicate filtered profile rows
 data/                                  Put the real SQL dump here locally
 examples/                              Small smoke-test SQL file
 docs/                                  Detailed guides
@@ -39,11 +34,12 @@ Install:
 
 - Docker Desktop
 - PowerShell
-- PowerACE separately
+- PowerACE separately (and all of it's dependencies)
 - Java/Eclipse for running PowerACE
 
 You do **not** need to install MariaDB or MySQL on your PC. MariaDB runs inside
-Docker.
+Docker. 
+For a complete startup guide for PowerACE refer to it's documentation.
 
 ## Quick Smoke Test
 
@@ -103,12 +99,6 @@ Check it:
 .\test-connection.ps1 -ContainerName powerace-mariadb
 ```
 
-Validate required tables:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\validate-powerace-tables.ps1
-```
-
 ## Configure PowerACE In Eclipse
 
 In the PowerACE run configuration, add these environment variables:
@@ -123,7 +113,7 @@ POWERACE_DB_PASSWORD=powerace
 The working directory should be the PowerACE project folder, for example:
 
 ```text
-E:\iip\workspace\powerace\PowerACE-main
+C:\workspace\powerace\PowerACE-main
 ```
 
 More details: [docs/POWERACE_ECLIPSE_SETUP.md](docs/POWERACE_ECLIPSE_SETUP.md)
