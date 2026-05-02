@@ -1,0 +1,21 @@
+# Real PowerACE data dumps are large and may contain restricted data.
+data/*.sql
+data/**/*.sql
+*.tar
+*.tar.gz
+*.zip
+*.7z
+
+# Local logs and temporary files
+*.log
+*.tmp
+*.bak
+*.normalized
+*.fixed
+*.idempotent
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
