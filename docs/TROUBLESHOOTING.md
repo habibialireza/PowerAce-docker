@@ -239,32 +239,3 @@ user:     root
 password: powerace_root
 ```
 
-## PowerACE Might Still Be Using The Original Database
-
-If PowerACE runs successfully, but you are unsure whether it used Docker or the
-original database server, prove it.
-
-First check the PowerACE console. It should show a local connection like:
-
-```text
-Opening PowerACE database connection pool at jdbc:mysql://127.0.0.1:3307 with user 'powerace'.
-```
-
-You can also stop the Docker container:
-
-```powershell
-docker stop powerace-mariadb
-```
-
-Then run PowerACE again with the same Eclipse configuration. If it is really
-using Docker, it should fail with a database connection error.
-
-Start the container again afterwards:
-
-```powershell
-docker start powerace-mariadb
-```
-
-If PowerACE still runs while the Docker container is stopped, Eclipse is probably
-not using the Docker environment variables and PowerACE may still be connecting
-to the original database.
