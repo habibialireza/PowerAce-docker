@@ -28,27 +28,10 @@ only needs enough data for the selected PowerACE run.
 
 ## Step 1: Choose The PowerACE Settings File
 
-First decide which PowerACE settings file should run, for example:
-
-```text
-params\Allgemein\settings_Ali.xml
-params\Allgemein\settings_Test.xml
-params\DissTW\settings_DE.xml
-```
+First decide which PowerACE settings file should run.
 
 The SQL export depends on this file.
 
-Important values inside the settings file include:
-
-```text
-startYear
-totalDays
-weatherSequenceID
-areaMapping
-scenario names
-market areas
-database table names
-```
 
 ## Step 2: List The Referenced Tables
 
@@ -65,34 +48,11 @@ You can list these tables with:
 ```
 
 Some tables are needed even if they are not explicitly listed in the settings
-XML. For current PowerACE versions, always include:
-
-```text
-iip-web-0002_definitions.tbl_demands
-iip-web-0002_definitions.tbl_scenarios
-iip-web-0002_geo.tbl_market_areas
-```
-
-These are lookup tables needed during model startup.
+XML. 
 
 ## Step 3: Decide Which Tables Can Be Fully Exported
 
 Small lookup tables can usually be exported completely.
-
-Typical examples:
-
-```text
-tbl_scenarios
-tbl_demands
-tbl_market_areas
-tbl_area_mapping_...
-tbl_availability
-fuel price tables
-CO2 price tables
-power plant tables
-storage tables
-investment option tables
-```
 
 In DBeaver, export these with:
 
@@ -111,31 +71,7 @@ INSERT INTO ...
 
 Do not blindly export very large hourly/profile tables.
 
-Use DBeaver to run this query for your table list:
-
-```sql
-SELECT
-    table_schema,
-    table_name,
-    ROUND((data_length + index_length) / 1024 / 1024 / 1024, 2) AS size_gb,
-    table_rows
-FROM information_schema.tables
-WHERE table_schema NOT IN ('mysql', 'information_schema', 'performance_schema', 'sys')
-ORDER BY size_gb DESC;
-```
-
-Large tables often include:
-
-```text
-demand profile tables
-renewable profile tables
-capacity factor tables
-hourly NTC/interconnector tables
-historical flow tables
-weather-dependent inflow tables
-```
-
-These should usually be filtered.
+Use a query to filter only the parts that are needed then dump into SQL file.
 
 ## Step 5: Work Out The Filters
 
@@ -178,11 +114,9 @@ main bidding-zone IDs and the mapped sub-IDs.
 For every large table:
 
 1. Export the table structure only.
-2. Create a filtered `SELECT` query for the rows needed by your settings file.
-3. Run the query in DBeaver.
-4. Right-click the result grid.
-5. Choose `Export Data`.
-6. Export as SQL `INSERT` statements.
+2. Create a filtered `SELECT` query for the rows needed by your settings file. Eport this as well.
+
+*All exports need to be as INSSERRT INTO... statements. 
 
 The filtered export should insert into the real table name, not into the query
 text. If DBeaver produces wrong insert headers, this repository has a repair
@@ -256,33 +190,6 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\make-profile-inserts-idemp
 
 Then rebuild.
 
-## Step 10: Build And Validate
-
-Build the image:
-
-```powershell
-.\build-image.ps1
-```
-
-Start the container:
-
-```powershell
-.\run-container.ps1
-```
-
-Check that MariaDB answers:
-
-```powershell
-.\test-connection.ps1 -ContainerName powerace-mariadb
-```
-
-Validate required tables:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\validate-powerace-tables.ps1
-```
-
-Finally, run PowerACE against the Docker database.
 
 ## Important Rule
 
