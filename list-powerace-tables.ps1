@@ -1,5 +1,5 @@
 param(
-    [string]$SettingsFile = "..\..\params\Allgemein\settings_Ali.xml"
+    [string]$SettingsFile = "..\..\params\your_settings_file.xml"
 )
 
 $ErrorActionPreference = "Stop"
