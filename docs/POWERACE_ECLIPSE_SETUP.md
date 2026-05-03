@@ -51,7 +51,7 @@ Under `Working directory`, choose `Other` and set the PowerACE project folder,
 for example:
 
 ```text
-E:\iip\workspace\powerace\PowerACE-main
+C:\workspace\powerace\PowerACE-main
 ```
 
 PowerACE reads `params/userSettings.xml` relative to this folder.
@@ -78,23 +78,3 @@ If PowerACE is using Docker, the console should show a database connection like:
 ```text
 Opening PowerACE database connection pool at jdbc:mysql://127.0.0.1:3307 with user 'powerace'.
 ```
-
-## 6. Prove That Docker Is Used
-
-Stop the Docker container:
-
-```powershell
-docker stop powerace-mariadb
-```
-
-Run PowerACE again. It should fail with a database connection error.
-
-Start Docker again:
-
-```powershell
-docker start powerace-mariadb
-```
-
-If PowerACE still runs while the container is stopped, Eclipse is probably not
-using the environment variables and PowerACE may still be using the original
-database settings.
