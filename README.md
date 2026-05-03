@@ -142,8 +142,7 @@ Then they start it with:
 
 To create the SQL dump from DBeaver, see:
 
-- [docs/CREATE_SQL_DUMP_WITH_DBEAVER.md](docs/CREATE_SQL_DUMP_WITH_DBEAVER.md)
-- [docs/EXPORT_PLAN_settings_Ali.md](docs/EXPORT_PLAN_settings_Ali.md)
+- [docs/CREATE_POWERACE_DATA_SQL_GENERAL.md](docs/CREATE_POWERACE_DATA_SQL_GENERAL.md)
 
 For common errors, see:
 
