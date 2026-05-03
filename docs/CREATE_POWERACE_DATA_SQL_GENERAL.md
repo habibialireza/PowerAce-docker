@@ -119,12 +119,7 @@ For every large table:
 *All exports need to be as INSSERRT INTO... statements. 
 
 The filtered export should insert into the real table name, not into the query
-text. If DBeaver produces wrong insert headers, this repository has a repair
-script:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\fix-dbeaver-query-inserts.ps1
-```
+text. If DBeaver produces wrong insert headers, you need to work around that.
 
 ## Step 7: Combine The SQL Parts
 
@@ -174,22 +169,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\normalize-dump-databases.p
 ## Step 9: Handle Duplicate Filtered Profile Rows If Needed
 
 Filtered profile exports can contain duplicates, especially when the filter joins
-against weather-year sequence tables.
-
-If Docker build fails with:
-
-```text
-Duplicate entry ... for key 'PRIMARY'
-```
-
-run:
-
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\make-profile-inserts-idempotent.ps1
-```
-
-Then rebuild.
-
+against weather-year sequence tables.Make sure to handle these duplicates before building.
 
 ## Important Rule
 
