@@ -18,7 +18,7 @@ PowerACE -> local Docker container -> MariaDB with PowerACE data
 ## What Is Included
 
 ```text
-Dockerfile                              Builds a MariaDB image with imported data
+Dockerfile                             Builds a MariaDB image with imported data
 build-image.ps1                        Builds the Docker image
 run-container.ps1                      Starts the database container
 test-connection.ps1                    Checks that MariaDB answers
